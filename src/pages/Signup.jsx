@@ -3,6 +3,8 @@ import { Flip, ToastContainer, Zoom } from 'react-toastify';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { handleError, handleSuccess } from '../utils';
+// import conf  from '../conf/conf';
+import { env_variables } from '../utils';
 
 function Signup()
 {
@@ -34,7 +36,12 @@ function Signup()
     }
     
     try {
-      const url = 'http://localhost:8080/auth/signup'
+
+      const url = `${env_variables.BASE_URL}/auth/signup`
+      
+      console.log(env_variables.BASE_URL)
+      console.log("url",url)
+      // const url = 'http://localhost:8080/auth/signup'
       const response = await fetch(url, {
         method: 'POST',
         headers: {

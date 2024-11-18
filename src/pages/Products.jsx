@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
+import { env_variables } from '../utils';
 
 function Products({ success, user })
 {
   const {products, setProducts} = useState({})
   
   const jwtToken = localStorage.getItem('AuthToken')
-
+  
   const show = async () =>
-  {
-    const url = 'http://localhost:8080/products/'
+    {
+      
+    const url = `${env_variables.BASE_URL}/products/`
+    // const url = 'http://localhost:8080/products/'
 
     fetch(url, {
       method: "GET",

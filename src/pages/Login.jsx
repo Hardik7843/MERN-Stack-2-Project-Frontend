@@ -4,34 +4,37 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { handleError, handleSuccess } from '../utils';
 
+import { env_variables } from '../utils';
+
 function Login()
 {
   const [LoginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   })
-
+  
   const navigate = useNavigate();
   const handleChange = (e) =>
-  {
-    const { name, value } = e.target;
-    // console.log(name, value);
-    const copyLoginInfo = { ...LoginInfo };
-    copyLoginInfo[name] = value;
-    setLoginInfo(copyLoginInfo);
-  }
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const {email, password } = LoginInfo;
-
-    if( !email || !password ) {
-      handleError("Email and Password are required for login !")
+    {
+      const { name, value } = e.target;
+      // console.log(name, value);
+      const copyLoginInfo = { ...LoginInfo };
+      copyLoginInfo[name] = value;
+      setLoginInfo(copyLoginInfo);
     }
-
-    try {
-      const authUrl = 'http://localhost:8080/auth/login'
-      const response = await fetch(authUrl, {
+    
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      const {email, password } = LoginInfo;
+      
+      if( !email || !password ) {
+        handleError("Email and Password are required for login !")
+      }
+      
+      try {
+      const url = `${env_variables.BASE_URL}/auth/login`
+      // const authUrl = 'http://localhost:8080/auth/login'
+      const response = await fetch(url, {
         method : "POST",
         headers : {
           "Content-Type" : 'application/json'
